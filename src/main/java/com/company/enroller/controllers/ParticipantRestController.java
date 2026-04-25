@@ -1,14 +1,13 @@
 package com.company.enroller.controllers;
 
-import java.util.Collection;
-
+import com.company.enroller.model.Participant;
+import com.company.enroller.persistence.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.company.enroller.model.Participant;
-import com.company.enroller.persistence.ParticipantService;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/participants")
@@ -19,6 +18,7 @@ public class ParticipantRestController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<?> getParticipants() {
+
         Collection<Participant> participants = participantService.getAll();
         return new ResponseEntity<Collection<Participant>>(participants, HttpStatus.OK);
     }
@@ -47,11 +47,11 @@ public class ParticipantRestController {
 
     }
 
-    @RequestMapping(value = "/{id}", method =  RequestMethod.DELETE)
-    public ResponseEntity<?> deleteParticipant(@PathVariable("id") String login){
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteParticipant(@PathVariable("id") String login) {
         Participant participant = participantService.findByLogin(login);
         if (participant == null) {
-            return new ResponseEntity<>("Participant don't exist",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Participant don't exist", HttpStatus.NOT_FOUND);
         }
 
         participantService.delete(participant);
@@ -59,16 +59,16 @@ public class ParticipantRestController {
 
     }
 
-    @RequestMapping(value = "/{id}", method =  RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateParticipant(
             @PathVariable("id") String login,
-            @RequestBody Participant participant){
+            @RequestBody Participant participant) {
 
         Participant foundParticipant = participantService.findByLogin(login);
 
         if (foundParticipant == null) {
 
-            return new ResponseEntity<>("Participant don't exist",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Participant don't exist", HttpStatus.NOT_FOUND);
         }
 
 

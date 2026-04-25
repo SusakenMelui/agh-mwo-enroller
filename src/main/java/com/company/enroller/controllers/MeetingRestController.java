@@ -2,9 +2,7 @@ package com.company.enroller.controllers;
 
 
 import com.company.enroller.model.Meeting;
-import com.company.enroller.model.Participant;
 import com.company.enroller.persistence.MeetingService;
-import com.company.enroller.persistence.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,11 +47,11 @@ public class MeetingRestController {
 
     }
 
-    @RequestMapping(value = "/{id}", method =  RequestMethod.DELETE)
-    public ResponseEntity<?> deleteMeeting(@PathVariable("id") long id){
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteMeeting(@PathVariable("id") long id) {
         Meeting meeting = meetingService.findById(id);
         if (meeting == null) {
-            return new ResponseEntity<>("Meeting don't exist",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Meeting don't exist", HttpStatus.NOT_FOUND);
         }
 
         meetingService.delete(meeting);
@@ -61,16 +59,16 @@ public class MeetingRestController {
 
     }
 
-    @RequestMapping(value = "/{id}", method =  RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateMeeting(
             @PathVariable("id") long id,
-            @RequestBody Meeting meeting){
+            @RequestBody Meeting meeting) {
 
         Meeting foundMeeting = meetingService.findById(id);
 
         if (foundMeeting == null) {
 
-            return new ResponseEntity<>("Meeting don't exist",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Meeting don't exist", HttpStatus.NOT_FOUND);
         }
 
         meeting.setId(id);
